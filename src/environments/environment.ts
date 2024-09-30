@@ -1,3 +1,1 @@
-export const environment = {
-  PAGE_SIZE: 6
-};
+export const environment = {};
