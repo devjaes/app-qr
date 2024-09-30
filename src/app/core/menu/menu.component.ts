@@ -6,6 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./menu.component.css'],
 })
 export class MenuComponent {
-  listMenu: string[] = [];
+  listMenu: Menu[] = [];
   expanded: boolean = true;
 }
+
+type Menu = {
+  url: string;
+};

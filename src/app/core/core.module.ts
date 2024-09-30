@@ -14,7 +14,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
-
+import { RouterLink } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -34,7 +34,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatToolbarModule,
     MatSidenavModule,
     MatMenuModule,
-    MatTooltipModule
+    MatTooltipModule,
+    RouterLink,
   ],
   exports: [
     CommonModule,
@@ -51,6 +52,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     HeaderComponent,
     MenuComponent,
     PageLoginComponent,
-  ]
+    RouterLink,
+  ],
 })
-export class CoreModule { }
+export class CoreModule {}
