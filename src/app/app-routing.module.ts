@@ -3,36 +3,43 @@ import { RouterModule, Routes } from '@angular/router';
 import { PageLoginComponent } from './core/page-login/page-login.component';
 
 const routes: Routes = [
+  { path: '', component: PageLoginComponent },
   {
-    path: '', component: PageLoginComponent
+    path: 'agencies',
+    canLoad: [],
+    loadChildren: () =>
+      import('./agency/agency.module').then((m) => m.AgencyModule),
   },
   {
-    path: 'agency',
-    loadChildren: () => import('./agency/agency.module').then(m => m.AgencyModule)
+    path: 'channels',
+    canLoad: [],
+    loadChildren: () =>
+      import('./channel/channel.module').then((m) => m.ChannelModule),
   },
   {
-    path: 'channel',
-    loadChildren: () => import('./channel/channel.module').then(m => m.ChannelModule)
+    path: 'clients',
+    canLoad: [],
+    loadChildren: () =>
+      import('./client/client.module').then((m) => m.ClientModule),
   },
   {
-    path: 'client',
-    loadChildren: () => import('./client/client.module').then(m => m.ClientModule)
-  },
-  {
-    path: 'employee',
-    loadChildren: () => import('./employee/employee.module').then(m => m.EmployeeModule)
-  },
-  {
-    path: 'follow-up',
-    loadChildren: () => import('./follow-up/follow-up.module').then(m => m.FollowUpModule)
+    path: 'employees',
+    canLoad: [],
+    loadChildren: () =>
+      import('./employee/employee.module').then((m) => m.EmployeeModule),
   },
   {
     path: 'qr',
-    loadChildren: () => import('./qr/qr.module').then(m => m.QrModule)
+    canLoad: [],
+    loadChildren: () =>
+      import('./qr/qr.module').then((m) => m.QrModule),
   },
   {
-    path: '**', redirectTo: ''
-  }
+    path: 'follow-up',
+    canLoad: [],
+    loadChildren: () =>
+      import('./follow-up/follow-up.module').then((m) => m.FollowUpModule),
+  },
 ];
 
 @NgModule({

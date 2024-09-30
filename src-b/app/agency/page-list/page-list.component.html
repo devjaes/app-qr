@@ -1,0 +1,21 @@
+<qr-title></qr-title>
+<qr-container>
+  <ng-scrollbar class"heightMaxScrollBar">
+    <qr-table [data]="data" [metaDataColumns]="metaDataColumns">
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-call-cell *matCellDef="let row" class="alingBottom">
+          <button
+            mat-icon-button
+            color="primary"
+            (click)="openForm(row)"
+            matTooltip="EDITAR"
+            >
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+
+      </ng-container>
+    </qr-table>
+  </ng-scrollbar>
+</qr-container>
