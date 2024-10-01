@@ -39,6 +39,7 @@ export class PageListComponent {
   ]
   records: IFollowUp[] = []
   totalRecords = this.data.length
+  currentPage = 0
 
   bottomSheet = inject(MatBottomSheet)
   dialog = inject(MatDialog)
@@ -51,7 +52,7 @@ export class PageListComponent {
   loadFollowUps() {
     this.records = this.data
     console.log(this.records)
-    this.changePage(0)
+    this.changePage(this.currentPage)
   }
 
   delete(id: number) {
@@ -71,17 +72,24 @@ export class PageListComponent {
     reference.afterClosed().subscribe((response) => {
       if (!response) { return }
       if (response.id) {
-        const followUp = { ...response }
+        const followUp = { ...response, _id: response.id }
+        const position = this.data.findIndex(ind => ind._id === response.id)
+
+        this.data[position] = followUp
         this.loadFollowUps()
         this.showMessage('Registro actualizado')
 
       } else {
-        const followUp = { ...response }
+        const followUp = { ...response, _id: this.getLastIndex() + 1 }
         this.data.push(followUp)
         this.loadFollowUps()
         this.showMessage('Registro exitoso')
       }
     })
+  }
+
+  getLastIndex() {
+    return [...this.data].sort((a, b) => b._id - a._id)[0]._id
   }
 
   doAction(action: string) {
@@ -105,7 +113,8 @@ export class PageListComponent {
 
   changePage(page: number) {
     const pageSize = environment.PAGE_SIZE
+    this.currentPage = page
     const skip = pageSize * page
-    this.data = this.records.slice(skip, skip + pageSize)
+    this.records = this.data.slice(skip, skip + pageSize)
   }
 }
