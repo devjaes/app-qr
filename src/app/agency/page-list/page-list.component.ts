@@ -7,12 +7,8 @@ import { MetaDataColumn } from 'src/app/shared/interfaces/metacolumn.interface';
 import { FormComponent } from '../form/form.component';
 import { environment } from 'src/environments/environment.development';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
-export interface IAgency {
-  _id: number;
-  name: string;
-  address: string;
-}
+import { IAgency } from '../interfaces/IAgency';
+import { AgencyService } from '../services/agency.service';
 
 @Component({
   selector: 'qr-page-list',
@@ -21,21 +17,21 @@ export interface IAgency {
 })
 export class PageListComponent {
   data: IAgency[] = [
-    { _id: 1, name: 'Ambato', address: 'Calle A' },
-    { _id: 2, name: 'Riobamba', address: 'Calle B' },
-    { _id: 3, name: 'Quito', address: 'Calle C' },
-    { _id: 4, name: 'Cuenca', address: 'Calle D' },
-    { _id: 5, name: 'Guayaquil', address: 'Calle E' },
-    { _id: 6, name: 'Ambato', address: 'Calle A' },
-    { _id: 7, name: 'Riobamba', address: 'Calle B' },
-    { _id: 8, name: 'Quito', address: 'Calle C' },
-    { _id: 9, name: 'Cuenca', address: 'Calle D' },
-    { _id: 10, name: 'Guayaquil', address: 'Calle E' },
-    { _id: 11, name: 'Ambato', address: 'Calle A' },
-    { _id: 12, name: 'Riobamba', address: 'Calle B' },
-    { _id: 13, name: 'Quito', address: 'Calle C' },
-    { _id: 14, name: 'Cuenca', address: 'Calle D' },
-    { _id: 15, name: 'Guayaquil', address: 'Calle E' },
+    // { _id: 1, name: 'Ambato', address: 'Calle A' },
+    // { _id: 2, name: 'Riobamba', address: 'Calle B' },
+    // { _id: 3, name: 'Quito', address: 'Calle C' },
+    // { _id: 4, name: 'Cuenca', address: 'Calle D' },
+    // { _id: 5, name: 'Guayaquil', address: 'Calle E' },
+    // { _id: 6, name: 'Ambato', address: 'Calle A' },
+    // { _id: 7, name: 'Riobamba', address: 'Calle B' },
+    // { _id: 8, name: 'Quito', address: 'Calle C' },
+    // { _id: 9, name: 'Cuenca', address: 'Calle D' },
+    // { _id: 10, name: 'Guayaquil', address: 'Calle E' },
+    // { _id: 11, name: 'Ambato', address: 'Calle A' },
+    // { _id: 12, name: 'Riobamba', address: 'Calle B' },
+    // { _id: 13, name: 'Quito', address: 'Calle C' },
+    // { _id: 14, name: 'Cuenca', address: 'Calle D' },
+    // { _id: 15, name: 'Guayaquil', address: 'Calle E' },
   ]
   metaDataColumns: MetaDataColumn[] = [
     { field: "_id", title: "ID" },
@@ -55,19 +51,42 @@ export class PageListComponent {
 
   currentPage = 0
 
+  agencySrv = inject(AgencyService)
+
   constructor() {
     this.loadAgencies()
   }
 
   loadAgencies() {
-    this.records = [...this.data]
-    console.log(this.records)
-    this.changePage(this.currentPage)
+    // this.records = [...this.data]
+    this.agencySrv.getAgencies().subscribe({
+      next: (response: any[]) => {
+        this.data = response.map((agency) => {
+          return { _id: agency.id, name: agency.name, address: agency.address }
+        })
+        this.records = [...this.data]
+        this.totalRecords = this.data.length
+        this.changePage(this.currentPage)
+      },
+      error: (error) => {
+        console.error(error)
+      }
+
+    })
   }
 
   delete(id: number) {
-    const position = this.data.findIndex(ind => ind._id === id)
-    this.records = this.data.splice(position, 1)
+    // const position = this.data.findIndex(ind => ind._id === id)
+    // this.records = this.data.splice(position, 1)
+    this.agencySrv.deleteAgency(id).subscribe({
+      next: (response) => {
+        this.loadAgencies()
+        this.showMessage('Registro eliminado')
+      },
+      error: (error) => {
+        console.error(error)
+      }
+    })
     this.loadAgencies()
   }
 
@@ -82,15 +101,33 @@ export class PageListComponent {
     reference.afterClosed().subscribe((response) => {
       if (!response) { return }
       if (response.id) {
-        const agencia = { _id: response.id, ...response }
-        const position = this.data.findIndex(ind => ind._id === response.id)
-        this.data[position] = agencia
+        // const agencia = { _id: response.id, ...response }
+        // const position = this.data.findIndex(ind => ind._id === response.id)
+        // this.data[position] = agencia
+        this.agencySrv.updateAgency(response.id, response).subscribe({
+          next: (response) => {
+            this.loadAgencies()
+            this.showMessage('Registro actualizado')
+          },
+          error: (error) => {
+            console.error(error)
+          }
+        })
         this.loadAgencies()
         this.showMessage('Registro actualizado')
 
       } else {
         const agencia: IAgency = { _id: this.getLastIndex() + 1, ...response }
-        this.data.push(agencia)
+        // this.data.push(agencia)
+        this.agencySrv.createAgency(agencia).subscribe({
+          next: (response) => {
+            this.loadAgencies()
+            this.showMessage('Registro exitoso')
+          },
+          error: (error) => {
+            console.error(error)
+          }
+        })
         this.loadAgencies()
         this.showMessage('Registro exitoso')
       }

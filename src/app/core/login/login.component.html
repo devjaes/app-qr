@@ -7,12 +7,15 @@
       <mat-card-content class="container">
           <mat-form-field>
               <mat-label>Correo</mat-label>
-              <input type="text" matInput placeholder="Ingrese su correo" required>
-              <mat-icon matSuffix>email</mat-icon>
+              <input type="email" matInput
+
+          placeholder="Ingrese su correo" required formControlName="email">
+
+                    <mat-icon matSuffix>email</mat-icon>
           </mat-form-field>
           <mat-form-field>
               <mat-label>Contraseña</mat-label>
-              <input type="password" matInput placeholder="Ingrese su contraseña" required>
+              <input type="password" matInput placeholder="Ingrese su contraseña" required formControlName="password">
               <mat-icon matSuffix>lock</mat-icon>
           </mat-form-field>
           <button mat-button>Iniciar Sesión</button>
