@@ -6,26 +6,23 @@ import { MenuComponent } from './menu/menu.component';
 import { LoginComponent } from './login/login.component';
 import { RouterModule, RouterOutlet } from '@angular/router';
 
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatButtonModule} from '@angular/material/button';
-import {MatCardModule} from '@angular/material/card';
-import {MatInputModule} from '@angular/material/input';
-import {MatIconModule} from '@angular/material/icon';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatListModule} from '@angular/material/list';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatToolbarModule} from '@angular/material/toolbar';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { SharedModule } from '../shared/shared.module';
-
-
-
 
 @NgModule({
   declarations: [
     PageLoginComponent,
     HeaderComponent,
     MenuComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     CommonModule,
@@ -40,7 +37,7 @@ import { SharedModule } from '../shared/shared.module';
     MatListModule,
     MatMenuModule,
     MatToolbarModule,
-    SharedModule
+    SharedModule,
   ],
   exports: [
     HeaderComponent,
@@ -54,6 +51,6 @@ import { SharedModule } from '../shared/shared.module';
     MatListModule,
     MatMenuModule,
     MatToolbarModule,
-  ]
+  ],
 })
-export class CoreModule { }
+export class CoreModule {}

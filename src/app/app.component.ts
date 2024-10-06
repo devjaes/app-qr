@@ -4,15 +4,14 @@ import { Component } from '@angular/core';
   selector: 'qr-root',
   templateUrl: './app.component.html',
   //template:'<p>Hola</p>',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
   //styles:['p {color: red;}']
 })
 export class AppComponent {
   title = 'appGQR';
-  expanded=true
+  expanded = true;
 
-  toggleExpanded(expanded:boolean)
-  {
-    this.expanded = expanded
+  toggleExpanded(expanded: boolean) {
+    this.expanded = expanded;
   }
 }

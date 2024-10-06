@@ -1,7 +1,7 @@
-.panel-container{
+.panel-container {
   width: 600px;
 }
-mat-toolbar{
+mat-toolbar {
   display: flex;
   flex-direction: row;
   justify-content: space-between;

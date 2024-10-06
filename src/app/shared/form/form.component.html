@@ -6,14 +6,14 @@
 </mat-toolbar>
 <mat-dialog-content>
   <form class="container" [formGroup]="group">
-    <mat-form-field appearance="outline">
-      <mat-label>Agencia</mat-label>
-      <input type="text" matInput formControlName="name" />
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Dirección</mat-label>
-      <input type="text" matInput formControlName="address" />
-    </mat-form-field>
+    <ng-container *ngFor="let property of metaDataColumns">
+      <ng-container *ngIf="property.field !== 'id'">
+        <mat-form-field appearance="outline">
+          <mat-label>{{ property.title }}</mat-label>
+          <input type="text" matInput [formControlName]="property.field" />
+        </mat-form-field>
+      </ng-container>
+    </ng-container>
     <div fxLayout fxLayoutAlign="end" fxLayoutGap="10px">
       <button
         mat-raised-button

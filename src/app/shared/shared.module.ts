@@ -23,7 +23,9 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatListModule } from "@angular/material/list";
-import { MatBottomSheetModule } from '@angular/material/bottom-sheet'
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { SharedPageListComponent } from './shared-page-list/shared-page-list.component';
+import { FormComponent } from './form/form.component'
 
 
 
@@ -36,7 +38,9 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet'
     TableComponent,
     TitleComponent,
     KeypadButtonComponent,
-    TestComponent
+    TestComponent,
+    SharedPageListComponent,
+    FormComponent
   ],
   imports: [
     CommonModule,
@@ -78,6 +82,8 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet'
     NgScrollbarModule,
     HttpClientModule,
     MatSnackBarModule,
+    FormComponent,
+    SharedPageListComponent
   ]
 })
 export class SharedModule { }
